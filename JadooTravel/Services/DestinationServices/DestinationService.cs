@@ -9,6 +9,9 @@ namespace JadooTravel.Services.DestinationServices
     public class DestinationService : IDestinationService
     {
         private readonly IMongoCollection<Destination> _destinationCollection;
+        private readonly IMongoCollection<Testimonial> _testimonialCollection;
+        private readonly IMongoCollection<Service> _serviceCollection;
+        private readonly IMongoCollection<Reservation> _reservationCollection;
         private readonly IMapper _mapper;
 
         public DestinationService(IMapper mapper, IDatabaseSettings _databaseSettings)
@@ -47,5 +50,7 @@ namespace JadooTravel.Services.DestinationServices
             var value = _mapper.Map<Destination>(updateDestinationDto);
             return _destinationCollection.FindOneAndReplaceAsync(x => x.DestinationId == updateDestinationDto.DestinationId, value);
         }
+
+
     }
 }
