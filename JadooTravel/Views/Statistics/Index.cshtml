@@ -1,11 +1,19 @@
-﻿
+﻿@using JadooTravel.Dtos.BookingDtos
+@using JadooTravel.Dtos.DestinationDtos
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Dashboard";
     Layout = "~/Views/AdminLayout/Layout.cshtml";
+    var latestBookings = ViewBag.LatestBookings as List<ResultBookingDto> ?? new List<ResultBookingDto>();
+    var latestTours = ViewBag.LatestTours as List<ResultDestinationDto> ?? new List<ResultDestinationDto>();
+    var tourNames = ViewBag.TourNames as List<string> ?? new List<string>();
+    var tourCounts = ViewBag.TourCounts as List<int> ?? new List<int>();
+    var monthlyLabels = ViewBag.MonthlyLabels as List<string> ?? new List<string>();
+    var monthlyCounts = ViewBag.MonthlyCounts as List<int> ?? new List<int>();
+    var statusLabels = ViewBag.StatusLabels as List<string> ?? new List<string>();
+    var statusCounts = ViewBag.StatusCounts as List<int> ?? new List<int>();
 }
 
 <div class="body-wrapper">
-
     <div class="body-wrapper-inner">
         <div class="container-fluid">
             <!--  Header Start -->
@@ -17,367 +25,126 @@
                                 <i class="ti ti-menu-2"></i>
                             </a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link " href="javascript:void(0)" id="drop1" data-bs-toggle="dropdown"
-                               aria-expanded="false">
-                                <iconify-icon icon="solar:bell-linear" class="fs-6"></iconify-icon>
-                                <div class="notification bg-primary rounded-circle"></div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-animate-up" aria-labelledby="drop1">
-                                <div class="message-body">
-                                    <a href="javascript:void(0)" class="dropdown-item">
-                                        Item 1
-                                    </a>
-                                    <a href="javascript:void(0)" class="dropdown-item">
-                                        Item 2
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
                     </ul>
                     <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
                         <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-                            <a href="https://www.wrappixel.com/templates/spike-bootstrap-admin-dashboard/?ref=376" target="_blank"
-                               class="btn btn-primary">Check Pro Template</a>
                             <li class="nav-item dropdown">
-                                <a class="nav-link " href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
-                                   aria-expanded="false">
-                                    <img src="../assets/images/profile/user1.jpg" alt="" width="35" height="35"
-                                         class="rounded-circle">
+                                <a class="nav-link " href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="/public/assets/img/testimonial/author.png" alt="" width="35" height="35" class="rounded-circle">
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                                    <div class="message-body">
-                                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                                            <i class="ti ti-user fs-6"></i>
-                                            <p class="mb-0 fs-3">My Profile</p>
-                                        </a>
-                                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                                            <i class="ti ti-mail fs-6"></i>
-                                            <p class="mb-0 fs-3">My Account</p>
-                                        </a>
-                                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                                            <i class="ti ti-list-check fs-6"></i>
-                                            <p class="mb-0 fs-3">My Task</p>
-                                        </a>
-                                        <a href="./authentication-login.html"
-                                           class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
-                                    </div>
-                                </div>
                             </li>
                         </ul>
                     </div>
                 </nav>
             </header>
             <!--  Header End -->
-            <!--  Row 1 -->
+
+            <!--  Charts Row -->
             <div class="row">
-                <div class="col-lg-8 d-flex align-items-strech">
+                <!-- Tour Booking Chart -->
+                <div class="col-lg-4 d-flex align-items-stretch">
                     <div class="card w-100">
                         <div class="card-body">
-                            <div class="d-flex align-items-center justify-content-between mb-1">
-                                <div class="">
-                                    <h5 class="card-title fw-semibold">Profit & Expenses</h5>
-                                </div>
-                                <div class="dropdown">
-                                    <button id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
-                                            class="rounded-circle btn-transparent rounded-circle btn-sm px-1 btn shadow-none">
-                                        <i class="ti ti-dots-vertical fs-7 d-block"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div id="profit"></div>
+                            <h5 class="card-title fw-semibold mb-4">Tur Rezervasyonları</h5>
+                            <div id="tourBookingChart"></div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="row">
-                        <div class="col-lg-12 col-sm-6">
-                            <!-- Yearly Breakup -->
-                            <div class="card overflow-hidden">
-                                <div class="card-body p-4">
-                                    <h5 class="card-title mb-10 fw-semibold">Traffic Distribution</h5>
-                                    <div class="row align-items-center">
-                                        <div class="col-7">
-                                            <h4 class="fw-semibold mb-3">$36,358</h4>
-                                            <div class="d-flex align-items-center mb-2">
-                                                <span class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
-                                                    <i class="ti ti-arrow-up-left text-success"></i>
-                                                </span>
-                                                <p class="text-dark me-1 fs-3 mb-0">+9%</p>
-                                                <p class="fs-3 mb-0">last year</p>
-                                            </div>
-                                            <div class="d-flex align-items-center">
-                                                <div class="me-3">
-                                                    <span class="round-8 bg-primary rounded-circle me-2 d-inline-block"></span>
-                                                    <span class="fs-2">Oragnic</span>
-                                                </div>
-                                                <div>
-                                                    <span class="round-8 bg-danger rounded-circle me-2 d-inline-block"></span>
-                                                    <span class="fs-2">Refferal</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-5">
-                                            <div class="d-flex justify-content-center">
-                                                <div id="grade"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <!-- Monthly Bookings Chart -->
+                <div class="col-lg-4 d-flex align-items-stretch">
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <h5 class="card-title fw-semibold mb-4">Aylık Rezervasyonlar</h5>
+                            <div id="monthlyChart"></div>
                         </div>
-                        <div class="col-lg-12 col-sm-6">
-                            <!-- Monthly Earnings -->
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row alig n-items-start">
-                                        <div class="col-8">
-                                            <h5 class="card-title mb-10 fw-semibold"> Product Sales</h5>
-                                            <h4 class="fw-semibold mb-3">$6,820</h4>
-                                            <div class="d-flex align-items-center pb-1">
-                                                <span class="me-2 rounded-circle bg-light-danger round-20 d-flex align-items-center justify-content-center">
-                                                    <i class="ti ti-arrow-down-right text-danger"></i>
-                                                </span>
-                                                <p class="text-dark me-1 fs-3 mb-0">+9%</p>
-                                                <p class="fs-3 mb-0">last year</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-4">
-                                            <div class="d-flex justify-content-end">
-                                                <div class="text-white bg-danger rounded-circle p-6 d-flex align-items-center justify-content-center">
-                                                    <i class="ti ti-currency-dollar fs-6"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="earning"></div>
-                            </div>
+                    </div>
+                </div>
+                <!-- Status Distribution Chart -->
+                <div class="col-lg-4 d-flex align-items-stretch">
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <h5 class="card-title fw-semibold mb-4">Rezervasyon Durumları</h5>
+                            <div id="statusChart"></div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Latest Reservations - Full Width (12 columns) -->
             <div class="row">
-                <div class="col-lg-4 d-flex align-items-stretch">
-                    <div class="card w-100">
-                        <div class="card-body p-4">
-                            <div class="mb-4">
-                                <h5 class="card-title fw-semibold">Upcoming Schedules</h5>
-                            </div>
-                            <ul class="timeline-widget mb-0 position-relative mb-n5">
-                                <li class="timeline-item d-flex position-relative overflow-hidden">
-                                    <div class="timeline-time text-dark flex-shrink-0 text-end">09:30</div>
-                                    <div class="timeline-badge-wrap d-flex flex-column align-items-center">
-                                        <span class="timeline-badge border-2 border border-primary flex-shrink-0 my-2"></span>
-                                        <span class="timeline-badge-border d-block flex-shrink-0"></span>
-                                    </div>
-                                    <div class="timeline-desc fs-3 text-dark mt-n1">Payment received from John Doe of $385.90</div>
-                                </li>
-                                <li class="timeline-item d-flex position-relative overflow-hidden">
-                                    <div class="timeline-time text-dark flex-shrink-0 text-end">10:00 am</div>
-                                    <div class="timeline-badge-wrap d-flex flex-column align-items-center">
-                                        <span class="timeline-badge border-2 border border-info flex-shrink-0 my-2"></span>
-                                        <span class="timeline-badge-border d-block flex-shrink-0"></span>
-                                    </div>
-                                    <div class="timeline-desc fs-3 text-dark mt-n1 fw-semibold">
-                                        New sale recorded <a href="javascript:void(0)" class="text-primary d-block fw-normal">#ML-3467</a>
-                                    </div>
-                                </li>
-                                <li class="timeline-item d-flex position-relative overflow-hidden">
-                                    <div class="timeline-time text-dark flex-shrink-0 text-end">12:00 am</div>
-                                    <div class="timeline-badge-wrap d-flex flex-column align-items-center">
-                                        <span class="timeline-badge border-2 border border-success flex-shrink-0 my-2"></span>
-                                        <span class="timeline-badge-border d-block flex-shrink-0"></span>
-                                    </div>
-                                    <div class="timeline-desc fs-3 text-dark mt-n1">Payment was made of $64.95 to Michael</div>
-                                </li>
-                                <li class="timeline-item d-flex position-relative overflow-hidden">
-                                    <div class="timeline-time text-dark flex-shrink-0 text-end">09:30 am</div>
-                                    <div class="timeline-badge-wrap d-flex flex-column align-items-center">
-                                        <span class="timeline-badge border-2 border border-warning flex-shrink-0 my-2"></span>
-                                        <span class="timeline-badge-border d-block flex-shrink-0"></span>
-                                    </div>
-                                    <div class="timeline-desc fs-3 text-dark mt-n1 fw-semibold">
-                                        New sale recorded <a href="javascript:void(0)" class="text-primary d-block fw-normal">#ML-3467</a>
-                                    </div>
-                                </li>
-                                <li class="timeline-item d-flex position-relative overflow-hidden">
-                                    <div class="timeline-time text-dark flex-shrink-0 text-end">09:30 am</div>
-                                    <div class="timeline-badge-wrap d-flex flex-column align-items-center">
-                                        <span class="timeline-badge border-2 border border-danger flex-shrink-0 my-2"></span>
-                                        <span class="timeline-badge-border d-block flex-shrink-0"></span>
-                                    </div>
-                                    <div class="timeline-desc fs-3 text-dark mt-n1 fw-semibold">
-                                        New arrival recorded
-                                    </div>
-                                </li>
-                                <li class="timeline-item d-flex position-relative overflow-hidden">
-                                    <div class="timeline-time text-dark flex-shrink-0 text-end">12:00 am</div>
-                                    <div class="timeline-badge-wrap d-flex flex-column align-items-center">
-                                        <span class="timeline-badge border-2 border border-success flex-shrink-0 my-2"></span>
-                                    </div>
-                                    <div class="timeline-desc fs-3 text-dark mt-n1">Payment Done</div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-8 d-flex align-items-stretch">
+                <div class="col-12">
                     <div class="card w-100">
                         <div class="card-body p-4">
                             <div class="d-flex mb-4 justify-content-between align-items-center">
-                                <h5 class="mb-0 fw-bold">Top Paying Clients</h5>
-
-                                <div class="dropdown">
-                                    <button id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
-                                            class="rounded-circle btn-transparent rounded-circle btn-sm px-1 btn shadow-none">
-                                        <i class="ti ti-dots-vertical fs-7 d-block"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <h5 class="mb-0 fw-bold">Son 5 Rezervasyon</h5>
+                                <a href="/Booking/BookingList" class="btn btn-primary btn-sm">Tümünü Gör</a>
                             </div>
-
                             <div class="table-responsive" data-simplebar>
                                 <table class="table table-borderless align-middle text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Profile</th>
-                                            <th scope="col">Hour Rate</th>
-                                            <th scope="col">Extra classes</th>
-                                            <th scope="col">Status</th>
+                                            <th scope="col">Müşteri</th>
+                                            <th scope="col">Tur</th>
+                                            <th scope="col">Tarih</th>
+                                            <th scope="col">Kişi</th>
+                                            <th scope="col">Toplam</th>
+                                            <th scope="col">Durum</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="me-4">
-                                                        <img src="../assets/images/profile/user1.jpg" width="50" class="rounded-circle"
-                                                             alt="" />
-                                                    </div>
-
-                                                    <div>
-                                                        <h6 class="mb-1 fw-bolder">Mark J. Freeman</h6>
-                                                        <p class="fs-3 mb-0">Prof. English</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <p class="fs-3 fw-normal mb-0">$150/hour</p>
-                                            </td>
-                                            <td>
-                                                <p class="fs-3 fw-normal mb-0 text-success">
-                                                    +53
-                                                </p>
-                                            </td>
-                                            <td>
-                                                <span class="badge bg-light-success rounded-pill text-success px-3 py-2 fs-3">Available</span>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="me-4">
-                                                        <img src="../assets/images/profile/user2.jpg" width="50" class="rounded-circle"
-                                                             alt="" />
-                                                    </div>
-
-                                                    <div>
-                                                        <h6 class="mb-1 fw-bolder">Nina R. Oldman</h6>
-                                                        <p class="fs-3 mb-0">Prof. History</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <p class="fs-3 fw-normal mb-0">$150/hour</p>
-                                            </td>
-                                            <td>
-                                                <p class="fs-3 fw-normal mb-0 text-success">
-                                                    +68
-                                                </p>
-                                            </td>
-                                            <td>
-                                                <span class="badge bg-light-primary rounded-pill text-primary px-3 py-2 fs-3">
-                                                    In
-                                                    Class
-                                                </span>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="me-4">
-                                                        <img src="../assets/images/profile/user3.jpg" width="50" class="rounded-circle"
-                                                             alt="" />
-                                                    </div>
-
-                                                    <div>
-                                                        <h6 class="mb-1 fw-bolder">Arya H. Shah</h6>
-                                                        <p class="fs-3 mb-0">Prof. Maths</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <p class="fs-3 fw-normal mb-0">$150/hour</p>
-                                            </td>
-                                            <td>
-                                                <p class="fs-3 fw-normal mb-0 text-success">
-                                                    +94
-                                                </p>
-                                            </td>
-                                            <td>
-                                                <span class="badge bg-light-danger rounded-pill text-danger px-3 py-2 fs-3">Absent</span>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="me-4">
-                                                        <img src="../assets/images/profile/user4.jpg" width="50" class="rounded-circle"
-                                                             alt="" />
-                                                    </div>
-
-                                                    <div>
-                                                        <h6 class="mb-1 fw-bolder">June R. Smith</h6>
-                                                        <p class="fs-3 mb-0">Prof. Arts</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <p class="fs-3 fw-normal mb-0">$150/hour</p>
-                                            </td>
-                                            <td>
-                                                <p class="fs-3 fw-normal mb-0 text-success">
-                                                    +27
-                                                </p>
-                                            </td>
-                                            <td>
-                                                <span class="badge bg-light-warning rounded-pill text-warning px-3 py-2 fs-3">
-                                                    On
-                                                    Leave
-                                                </span>
-                                            </td>
-                                        </tr>
+                                        @if (latestBookings.Any())
+                                        {
+                                            @foreach (var booking in latestBookings)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="me-3">
+                                                                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width:40px;height:40px;">
+                                                                    @booking.FullName?.Substring(0, 1).ToUpper()
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <h6 class="mb-1 fw-bolder">@booking.FullName</h6>
+                                                                <p class="fs-3 mb-0">@booking.Email</p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <p class="fs-3 fw-normal mb-0">@booking.DestinationName</p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="fs-3 fw-normal mb-0">@booking.BookingDate.ToString("dd.MM.yyyy")</p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="fs-3 fw-normal mb-0">@booking.NumberOfPeople kişi</p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="fs-3 fw-normal mb-0 text-success">@booking.TotalPrice.ToString("N0") ₺</p>
+                                                    </td>
+                                                    <td>
+                                                        @if (booking.Status == "Confirmed")
+                                                        {
+                                                            <span class="badge bg-light-success rounded-pill text-success px-3 py-2 fs-3">Onaylandı</span>
+                                                        }
+                                                        else if (booking.Status == "Cancelled")
+                                                        {
+                                                            <span class="badge bg-light-danger rounded-pill text-danger px-3 py-2 fs-3">İptal</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="badge bg-light-warning rounded-pill text-warning px-3 py-2 fs-3">Beklemede</span>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td colspan="6" class="text-center text-muted">Henüz rezervasyon bulunmuyor</td>
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
                             </div>
@@ -385,159 +152,126 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Latest 4 Tours -->
             <div class="row">
-                <div class="col-sm-6 col-xl-3">
-                    <div class="card overflow-hidden">
-                        <div class="position-relative">
-                            <a href="javascript:void(0)">
-                                <img src="../assets/images/products/s4.jpg"
-                                     class="card-img-top rounded-0" alt="...">
-                            </a>
-                            <a href="javascript:void(0)"
-                               class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3"
-                               data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart">
-                                <i class="ti ti-basket fs-4"></i>
-                            </a>
-                        </div>
-                        <div class="card-body pt-3 p-4">
-                            <h6 class="fw-semibold fs-4">Boat Headphone</h6>
-                            <div class="d-flex align-items-center justify-content-between">
-                                <h6 class="fw-semibold fs-4 mb-0">
-                                    $50 <span class="ms-2 fw-normal text-muted fs-3"><del>$65</del></span>
-                                </h6>
-                                <ul class="list-unstyled d-flex align-items-center mb-0">
-                                    <li>
-                                        <a class="me-1" href="javascript:void(0)"><i class="ti ti-star-filled text-warning"></i></a>
-                                    </li>
-                                    <li>
-                                        <a class="me-1" href="javascript:void(0)"><i class="ti ti-star-filled text-warning"></i></a>
-                                    </li>
-                                    <li>
-                                        <a class="me-1" href="javascript:void(0)"><i class="ti ti-star-filled text-warning"></i></a>
-                                    </li>
-                                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                    <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                </ul>
+                <div class="col-12">
+                    <h5 class="fw-semibold mb-4">Son Eklenen Turlar</h5>
+                </div>
+                @if (latestTours.Any())
+                {
+                    @foreach (var tour in latestTours)
+                    {
+                        <div class="col-sm-6 col-xl-3">
+                            <div class="card overflow-hidden">
+                                <div class="position-relative">
+                                    <a href="javascript:void(0)">
+                                        <img src="@tour.ImageUrl" class="card-img-top rounded-0" alt="@tour.CityCountry" style="height: 180px; object-fit: cover;">
+                                    </a>
+                                    <a href="/Destination/UpdateDestination/@tour.DestinationId"
+                                       class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3">
+                                        <i class="ti ti-edit fs-4"></i>
+                                    </a>
+                                </div>
+                                <div class="card-body pt-3 p-4">
+                                    <h6 class="fw-semibold fs-4">@tour.CityCountry</h6>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h6 class="fw-semibold fs-4 mb-0">
+                                            @tour.Price.ToString("N0") ₺
+                                        </h6>
+                                        <span class="badge bg-light-primary text-primary">@tour.DayNight</span>
+                                    </div>
+                                    <p class="text-muted fs-3 mt-2 mb-0">Kapasite: @tour.Capacity kişi</p>
+                                </div>
                             </div>
                         </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-12">
+                        <div class="alert alert-info">Henüz tur bulunmuyor</div>
                     </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                    <div class="card overflow-hidden">
-                        <div class="position-relative">
-                            <a href="javascript:void(0)">
-                                <img src="../assets/images/products/s5.jpg"
-                                     class="card-img-top rounded-0" alt="...">
-                            </a>
-                            <a href="javascript:void(0)"
-                               class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3"
-                               data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart">
-                                <i class="ti ti-basket fs-4"></i>
-                            </a>
-                        </div>
-                        <div class="card-body pt-3 p-4">
-                            <h6 class="fw-semibold fs-4">MacBook Air Pro</h6>
-                            <div class="d-flex align-items-center justify-content-between">
-                                <h6 class="fw-semibold fs-4 mb-0">
-                                    $650 <span class="ms-2 fw-normal text-muted fs-3"><del>$900</del></span>
-                                </h6>
-                                <ul class="list-unstyled d-flex align-items-center mb-0">
-                                    <li>
-                                        <a class="me-1" href="javascript:void(0)"><i class="ti ti-star-filled text-warning"></i></a>
-                                    </li>
-                                    <li>
-                                        <a class="me-1" href="javascript:void(0)"><i class="ti ti-star-filled text-warning"></i></a>
-                                    </li>
-                                    <li>
-                                        <a class="me-1" href="javascript:void(0)"><i class="ti ti-star-filled text-warning"></i></a>
-                                    </li>
-                                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                    <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                    <div class="card overflow-hidden">
-                        <div class="position-relative">
-                            <a href="javascript:void(0)">
-                                <img src="../assets/images/products/s7.jpg"
-                                     class="card-img-top rounded-0" alt="...">
-                            </a>
-                            <a href="javascript:void(0)"
-                               class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3"
-                               data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart">
-                                <i class="ti ti-basket fs-4"></i>
-                            </a>
-                        </div>
-                        <div class="card-body pt-3 p-4">
-                            <h6 class="fw-semibold fs-4">Red Valvet Dress</h6>
-                            <div class="d-flex align-items-center justify-content-between">
-                                <h6 class="fw-semibold fs-4 mb-0">
-                                    $150 <span class="ms-2 fw-normal text-muted fs-3"><del>$200</del></span>
-                                </h6>
-                                <ul class="list-unstyled d-flex align-items-center mb-0">
-                                    <li>
-                                        <a class="me-1" href="javascript:void(0)"><i class="ti ti-star-filled text-warning"></i></a>
-                                    </li>
-                                    <li>
-                                        <a class="me-1" href="javascript:void(0)"><i class="ti ti-star-filled text-warning"></i></a>
-                                    </li>
-                                    <li>
-                                        <a class="me-1" href="javascript:void(0)"><i class="ti ti-star-filled text-warning"></i></a>
-                                    </li>
-                                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                    <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                    <div class="card overflow-hidden">
-                        <div class="position-relative">
-                            <a href="javascript:void(0)">
-                                <img src="../assets/images/products/s11.jpg"
-                                     class="card-img-top rounded-0" alt="...">
-                            </a>
-                            <a href="javascript:void(0)"
-                               class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3"
-                               data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart">
-                                <i class="ti ti-basket fs-4"></i>
-                            </a>
-                        </div>
-                        <div class="card-body pt-3 p-4">
-                            <h6 class="fw-semibold fs-4">Cute Soft Teddybear</h6>
-                            <div class="d-flex align-items-center justify-content-between">
-                                <h6 class="fw-semibold fs-4 mb-0">
-                                    $285 <span class="ms-2 fw-normal text-muted fs-3"><del>$345</del></span>
-                                </h6>
-                                <ul class="list-unstyled d-flex align-items-center mb-0">
-                                    <li>
-                                        <a class="me-1" href="javascript:void(0)"><i class="ti ti-star-filled text-warning"></i></a>
-                                    </li>
-                                    <li>
-                                        <a class="me-1" href="javascript:void(0)"><i class="ti ti-star-filled text-warning"></i></a>
-                                    </li>
-                                    <li>
-                                        <a class="me-1" href="javascript:void(0)"><i class="ti ti-star-filled text-warning"></i></a>
-                                    </li>
-                                    <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                    <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
+
             <div class="py-6 px-6 text-center">
-                <p class="mb-0 fs-4">
-                    Design and Developed by <a href="https://www.wrappixel.com/" target="_blank"
-                                               class="pe-1 text-primary text-decoration-underline">wrappixel.com</a> Distributed by <a href="https://themewagon.com/">ThemeWagon</a>
-                </p>
+                <p class="mb-0 fs-4">JadooTravel Admin Panel</p>
             </div>
         </div>
     </div>
 </div>
 
+<!-- ApexCharts -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>
+    // Tour Booking Bar Chart
+    var tourOptions = {
+        series: [{
+            name: 'Kişi Sayısı',
+            data: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(tourCounts))
+        }],
+        chart: {
+            type: 'bar',
+            height: 280
+        },
+        plotOptions: {
+            bar: {
+                horizontal: true,
+                borderRadius: 4
+            }
+        },
+        colors: ['#5D87FF'],
+        xaxis: {
+            categories: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(tourNames))
+        }
+    };
+    var tourChart = new ApexCharts(document.querySelector("#tourBookingChart"), tourOptions);
+    tourChart.render();
+
+    // Monthly Line Chart
+    var monthlyOptions = {
+        series: [{
+            name: 'Rezervasyon',
+            data: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(monthlyCounts))
+        }],
+        chart: {
+            type: 'area',
+            height: 280
+        },
+        colors: ['#49BEFF'],
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shadeIntensity: 1,
+                opacityFrom: 0.7,
+                opacityTo: 0.3
+            }
+        },
+        stroke: {
+            curve: 'smooth',
+            width: 2
+        },
+        xaxis: {
+            categories: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(monthlyLabels))
+        }
+    };
+    var monthlyChart = new ApexCharts(document.querySelector("#monthlyChart"), monthlyOptions);
+    monthlyChart.render();
+
+    // Status Pie Chart
+    var statusOptions = {
+        series: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(statusCounts)),
+        chart: {
+            type: 'donut',
+            height: 280
+        },
+        labels: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(statusLabels.Select(s => s == "Pending" ? "Beklemede" : s == "Confirmed" ? "Onaylandı" : s == "Cancelled" ? "İptal" : s))),
+        colors: ['#FFAE1F', '#13DEB9', '#FA896B'],
+        legend: {
+            position: 'bottom'
+        }
+    };
+    var statusChart = new ApexCharts(document.querySelector("#statusChart"), statusOptions);
+    statusChart.render();
+</script>

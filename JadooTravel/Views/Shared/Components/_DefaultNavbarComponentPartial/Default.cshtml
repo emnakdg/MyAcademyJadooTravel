@@ -1,26 +1,82 @@
-﻿@*
-    Navbar Component Partial
+﻿@using Microsoft.AspNetCore.Localization
+@*
+    Navbar Component Partial with Language Selector
 *@
+
+@{
+    var requestCultureFeature = Context.Features.Get<IRequestCultureFeature>();
+    var currentCulture = requestCultureFeature?.RequestCulture.Culture.Name ?? "tr-TR";
+    
+    var cultures = new Dictionary<string, string>
+    {
+        { "tr-TR", "🇹🇷 TR" },
+        { "en-US", "🇺🇸 EN" },
+        { "fr-FR", "🇫🇷 FR" },
+        { "de-DE", "🇩🇪 DE" }
+    };
+    
+    var currentFlag = cultures.ContainsKey(currentCulture) ? cultures[currentCulture] : "🇹🇷 TR";
+    
+    // Localized strings based on culture
+    var navTexts = new Dictionary<string, Dictionary<string, string>>
+    {
+        { "tr-TR", new Dictionary<string, string> {
+            { "Services", "Hizmetlerimiz" },
+            { "Destinations", "Destinasyonlar" },
+            { "Booking", "Rezervasyon" },
+            { "Testimonials", "Referanslar" },
+            { "Contact", "İletişim" }
+        }},
+        { "en-US", new Dictionary<string, string> {
+            { "Services", "Services" },
+            { "Destinations", "Destinations" },
+            { "Booking", "Booking" },
+            { "Testimonials", "Testimonials" },
+            { "Contact", "Contact" }
+        }},
+        { "fr-FR", new Dictionary<string, string> {
+            { "Services", "Services" },
+            { "Destinations", "Destinations" },
+            { "Booking", "Réservation" },
+            { "Testimonials", "Témoignages" },
+            { "Contact", "Contact" }
+        }},
+        { "de-DE", new Dictionary<string, string> {
+            { "Services", "Dienstleistungen" },
+            { "Destinations", "Reiseziele" },
+            { "Booking", "Buchung" },
+            { "Testimonials", "Referenzen" },
+            { "Contact", "Kontakt" }
+        }}
+    };
+    
+    var texts = navTexts.ContainsKey(currentCulture) ? navTexts[currentCulture] : navTexts["tr-TR"];
+}
 
 <nav class="navbar navbar-expand-lg navbar-light fixed-top py-5 d-block" data-navbar-on-scroll="data-navbar-on-scroll">
     <div class="container">
-        <a class="navbar-brand" href="index.html"><img src="/public/assets/img/logo.svg" height="34" alt="logo" /></a>
+        <a class="navbar-brand" href="/Default"><img src="/public/assets/img/logo.svg" height="34" alt="logo" /></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
         <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-lg-center align-items-start">
-                <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#service">Hizmetlerimiz</a></li>
-                <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#destination">Lokasyonlar</a></li>
-                <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#booking">Rezervasyon</a></li>
-                <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#testimonial">Bize Yazın</a></li>
-                <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#!">Giriş Yap</a></li>
-                <li class="nav-item px-3 px-xl-4"><a class="btn btn-outline-dark order-1 order-lg-0 fw-medium" href="#!">Kayıt Ol</a></li>
+                <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#service">@texts["Services"]</a></li>
+                <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#destination">@texts["Destinations"]</a></li>
+                <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#booking">@texts["Booking"]</a></li>
+                <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#testimonial">@texts["Testimonials"]</a></li>
+                <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#!">@texts["Contact"]</a></li>
+                
+                <!-- Language Selector -->
                 <li class="nav-item dropdown px-3 px-lg-0">
-                    <a class="d-inline-block ps-0 py-2 pe-3 text-decoration-none dropdown-toggle fw-medium" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">EN</a>
+                    <a class="d-inline-block ps-0 py-2 pe-3 text-decoration-none dropdown-toggle fw-medium" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">@currentFlag</a>
                     <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg" style="border-radius:0.3rem;" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">EN</a></li>
-                        <li><a class="dropdown-item" href="#!">TR</a></li>
-                        <li><a class="dropdown-item" href="#!">ESP</a></li>
-                        <li><a class="dropdown-item" href="#!">FR</a></li>
+                        @foreach (var culture in cultures)
+                        {
+                            <li>
+                                <a class="dropdown-item @(culture.Key == currentCulture ? "active" : "")" href="/Language/SetLanguageGet?culture=@culture.Key">
+                                    @culture.Value
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </li>
             </ul>

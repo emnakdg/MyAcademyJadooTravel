@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  
+  <!-- Navigation -->
+  <data name="Home" xml:space="preserve"><value>Startseite</value></data>
+  <data name="Services" xml:space="preserve"><value>Dienstleistungen</value></data>
+  <data name="Destinations" xml:space="preserve"><value>Reiseziele</value></data>
+  <data name="About" xml:space="preserve"><value>Über uns</value></data>
+  <data name="Contact" xml:space="preserve"><value>Kontakt</value></data>
+  
+  <!-- Hero Section -->
+  <data name="BestRoutes" xml:space="preserve"><value>Die Besten Routen der Welt</value></data>
+  <data name="HeroTitle" xml:space="preserve"><value>Reisen, Genießen und Ein Neues Leben Leben</value></data>
+  <data name="HeroDescription" xml:space="preserve"><value>Buchen Sie Ihre Reise in Minuten, behalten Sie viel länger die Kontrolle.</value></data>
+  <data name="FindOutMore" xml:space="preserve"><value>Mehr Erfahren</value></data>
+  <data name="PlayDemo" xml:space="preserve"><value>Demo Ansehen</value></data>
+  
+  <!-- Services Section -->
+  <data name="OurServices" xml:space="preserve"><value>Unsere Dienstleistungen</value></data>
+  <data name="WeOfferBestServices" xml:space="preserve"><value>Wir Bieten die Besten Dienstleistungen</value></data>
+  
+  <!-- Destinations Section -->
+  <data name="PopularRoutes" xml:space="preserve"><value>Beliebte Routen</value></data>
+  <data name="MostLovedRoutes" xml:space="preserve"><value>Die Beliebtesten Reiserouten</value></data>
+  
+  <!-- Booking Section -->
+  <data name="MakeReservation" xml:space="preserve"><value>Reservierung Machen</value></data>
+  <data name="TurnDreamsIntoReality" xml:space="preserve"><value>Verwandeln Sie Ihre Träume in Realität!</value></data>
+  <data name="FullName" xml:space="preserve"><value>Vollständiger Name</value></data>
+  <data name="Email" xml:space="preserve"><value>E-Mail</value></data>
+  <data name="Phone" xml:space="preserve"><value>Telefon</value></data>
+  <data name="SelectTour" xml:space="preserve"><value>Tour Auswählen</value></data>
+  <data name="Date" xml:space="preserve"><value>Datum</value></data>
+  <data name="NumberOfPeople" xml:space="preserve"><value>Anzahl der Personen</value></data>
+  <data name="Submit" xml:space="preserve"><value>Absenden</value></data>
+  
+  <!-- Testimonials Section -->
+  <data name="Testimonials" xml:space="preserve"><value>Referenzen</value></data>
+  <data name="WhatPeopleSay" xml:space="preserve"><value>Was die Leute Über Uns Sagen</value></data>
+  
+  <!-- Footer -->
+  <data name="Company" xml:space="preserve"><value>Unternehmen</value></data>
+  <data name="Careers" xml:space="preserve"><value>Karriere</value></data>
+  <data name="Mobile" xml:space="preserve"><value>Mobil</value></data>
+  <data name="HelpFAQ" xml:space="preserve"><value>Hilfe/FAQ</value></data>
+  <data name="Press" xml:space="preserve"><value>Presse</value></data>
+  <data name="Affiliate" xml:space="preserve"><value>Partner</value></data>
+  <data name="More" xml:space="preserve"><value>Mehr</value></data>
+  <data name="DiscoverOurApp" xml:space="preserve"><value>Entdecken Sie Unsere App</value></data>
+  <data name="AllRightsReserved" xml:space="preserve"><value>Alle Rechte vorbehalten</value></data>
+  
+  <!-- Language -->
+  <data name="Language" xml:space="preserve"><value>Sprache</value></data>
+  <data name="Turkish" xml:space="preserve"><value>Türkisch</value></data>
+  <data name="English" xml:space="preserve"><value>Englisch</value></data>
+  <data name="French" xml:space="preserve"><value>Französisch</value></data>
+  <data name="German" xml:space="preserve"><value>Deutsch</value></data>
+</root>

@@ -1,0 +1,49 @@
+@model JadooTravel.Dtos.TestimonialDtos.CreateTestimonialDto
+@{
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+    ViewData["Title"] = "Yeni Referans Ekle";
+}
+
+<div class="body-wrapper">
+    <div class="body-wrapper-inner">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4">Yeni Referans Oluştur</h5>
+                    <form method="post">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Ad Soyad</label>
+                                    <input type="text" asp-for="NameSurname" class="form-control" placeholder="Örn: Ahmet Yılmaz" required />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Şehir/Ülke</label>
+                                    <input type="text" asp-for="CityCountry" class="form-control" placeholder="Örn: İstanbul, Türkiye" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Fotoğraf URL</label>
+                            <input type="text" asp-for="ImageUrl" class="form-control" placeholder="https://example.com/photo.jpg" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Yorum</label>
+                            <textarea asp-for="Comment" rows="4" class="form-control" placeholder="Müşteri yorumu..." required></textarea>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="ti ti-check"></i> Kaydet
+                            </button>
+                            <a href="/Testimonial/TestimonialList" class="btn btn-secondary">
+                                <i class="ti ti-x"></i> İptal
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

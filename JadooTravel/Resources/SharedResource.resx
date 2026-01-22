@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  
+  <!-- Navigation -->
+  <data name="Home" xml:space="preserve"><value>Ana Sayfa</value></data>
+  <data name="Services" xml:space="preserve"><value>Hizmetlerimiz</value></data>
+  <data name="Destinations" xml:space="preserve"><value>Destinasyonlar</value></data>
+  <data name="About" xml:space="preserve"><value>Hakkımızda</value></data>
+  <data name="Contact" xml:space="preserve"><value>İletişim</value></data>
+  
+  <!-- Hero Section -->
+  <data name="BestRoutes" xml:space="preserve"><value>Dünyanın En İyi Rotaları</value></data>
+  <data name="HeroTitle" xml:space="preserve"><value>Seyahat Et, Keyfini Çıkar ve Yeni Bir Hayat Yaşa</value></data>
+  <data name="HeroDescription" xml:space="preserve"><value>Dakikalar içinde seyahatinizi planlayın, çok daha uzun süre kontrolü elinizde tutun.</value></data>
+  <data name="FindOutMore" xml:space="preserve"><value>Daha Fazla Bilgi</value></data>
+  <data name="PlayDemo" xml:space="preserve"><value>Demo İzle</value></data>
+  
+  <!-- Services Section -->
+  <data name="OurServices" xml:space="preserve"><value>Hizmetlerimiz</value></data>
+  <data name="WeOfferBestServices" xml:space="preserve"><value>En İyi Hizmetleri Sunuyoruz</value></data>
+  
+  <!-- Destinations Section -->
+  <data name="PopularRoutes" xml:space="preserve"><value>Popüler Rotalar</value></data>
+  <data name="MostLovedRoutes" xml:space="preserve"><value>En Sevilen Tur Rotaları</value></data>
+  
+  <!-- Booking Section -->
+  <data name="MakeReservation" xml:space="preserve"><value>Rezervasyon Yap</value></data>
+  <data name="TurnDreamsIntoReality" xml:space="preserve"><value>Hayallerinizi gerçeğe dönüştürün!</value></data>
+  <data name="FullName" xml:space="preserve"><value>Ad Soyad</value></data>
+  <data name="Email" xml:space="preserve"><value>E-posta</value></data>
+  <data name="Phone" xml:space="preserve"><value>Telefon</value></data>
+  <data name="SelectTour" xml:space="preserve"><value>Tur Seçin</value></data>
+  <data name="Date" xml:space="preserve"><value>Tarih</value></data>
+  <data name="NumberOfPeople" xml:space="preserve"><value>Kişi Sayısı</value></data>
+  <data name="Submit" xml:space="preserve"><value>Gönder</value></data>
+  
+  <!-- Testimonials Section -->
+  <data name="Testimonials" xml:space="preserve"><value>Referanslar</value></data>
+  <data name="WhatPeopleSay" xml:space="preserve"><value>İnsanlar Hakkımızda Ne Diyor</value></data>
+  
+  <!-- Footer -->
+  <data name="Company" xml:space="preserve"><value>Şirket</value></data>
+  <data name="Careers" xml:space="preserve"><value>Kariyer</value></data>
+  <data name="Mobile" xml:space="preserve"><value>Mobil</value></data>
+  <data name="HelpFAQ" xml:space="preserve"><value>Yardım/SSS</value></data>
+  <data name="Press" xml:space="preserve"><value>Basın</value></data>
+  <data name="Affiliate" xml:space="preserve"><value>İş Ortaklığı</value></data>
+  <data name="More" xml:space="preserve"><value>Daha Fazla</value></data>
+  <data name="DiscoverOurApp" xml:space="preserve"><value>Uygulamamızı Keşfedin</value></data>
+  <data name="AllRightsReserved" xml:space="preserve"><value>Tüm hakları saklıdır</value></data>
+  
+  <!-- Language -->
+  <data name="Language" xml:space="preserve"><value>Dil</value></data>
+  <data name="Turkish" xml:space="preserve"><value>Türkçe</value></data>
+  <data name="English" xml:space="preserve"><value>İngilizce</value></data>
+  <data name="French" xml:space="preserve"><value>Fransızca</value></data>
+  <data name="German" xml:space="preserve"><value>Almanca</value></data>
+</root>

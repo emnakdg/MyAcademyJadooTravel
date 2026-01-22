@@ -1,0 +1,39 @@
+@model JadooTravel.Dtos.ServiceDtos.CreateServiceDto
+@{
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+    ViewData["Title"] = "Yeni Hizmet Ekle";
+}
+
+<div class="body-wrapper">
+    <div class="body-wrapper-inner">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4">Yeni Hizmet Oluştur</h5>
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Hizmet Başlığı</label>
+                            <input type="text" asp-for="Title" class="form-control" placeholder="Örn: Havayolları" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Açıklama</label>
+                            <textarea asp-for="Description" rows="3" class="form-control" placeholder="Hizmet açıklaması..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">İkon URL</label>
+                            <input type="text" asp-for="IconUrl" class="form-control" placeholder="/public/assets/img/icons/icon.png" />
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="ti ti-check"></i> Kaydet
+                            </button>
+                            <a href="/Service/ServiceList" class="btn btn-secondary">
+                                <i class="ti ti-x"></i> İptal
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

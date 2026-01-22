@@ -1,52 +1,107 @@
-﻿@*
-    Category Component Partial View
+﻿@model List<JadooTravel.Dtos.ServiceDtos.ResultServiceDto>
+@using Microsoft.AspNetCore.Localization
+@*
+    Category/Services Component Partial View - Dynamic Data with Localization
 *@
+
+@{
+    var requestCultureFeature = Context.Features.Get<IRequestCultureFeature>();
+    var currentCulture = requestCultureFeature?.RequestCulture.Culture.Name ?? "tr-TR";
+    
+    var texts = new Dictionary<string, Dictionary<string, string>>
+    {
+        { "tr-TR", new Dictionary<string, string> {
+            { "OurServices", "Hizmetlerimiz" },
+            { "WeOfferBest", "En İyi Hizmetleri Sunuyoruz" }
+        }},
+        { "en-US", new Dictionary<string, string> {
+            { "OurServices", "Our Services" },
+            { "WeOfferBest", "We Offer Best Services" }
+        }},
+        { "fr-FR", new Dictionary<string, string> {
+            { "OurServices", "Nos Services" },
+            { "WeOfferBest", "Nous Offrons les Meilleurs Services" }
+        }},
+        { "de-DE", new Dictionary<string, string> {
+            { "OurServices", "Unsere Dienstleistungen" },
+            { "WeOfferBest", "Wir Bieten die Besten Dienstleistungen" }
+        }}
+    };
+    
+    var t = texts.ContainsKey(currentCulture) ? texts[currentCulture] : texts["tr-TR"];
+}
 
 <section class="pt-5 pt-md-9" id="service">
 
     <div class="container">
-        <div class="position-absolute z-index--1 end-0 d-none d-lg-block"><img src="/public/assets/img/category/shape.svg" style="max-width: 200px" alt="service" /></div>
+        <div class="position-absolute z-index--1 end-0 d-none d-lg-block"><img src="~/public/assets/img/category/shape.svg" style="max-width: 200px" alt="service" /></div>
         <div class="mb-7 text-center">
-            <h5 class="text-secondary">Kategoriler </h5>
-            <h3 class="fs-xl-10 fs-lg-8 fs-7 fw-bold font-cursive text-capitalize">We Offer Best Services</h3>
+            <h5 class="text-secondary">@t["OurServices"]</h5>
+            <h3 class="fs-xl-10 fs-lg-8 fs-7 fw-bold font-cursive text-capitalize">@t["WeOfferBest"]</h3>
         </div>
         <div class="row">
-            <div class="col-lg-3 col-sm-6 mb-6">
-                <div class="card service-card shadow-hover rounded-3 text-center align-items-center">
-                    <div class="card-body p-xxl-5 p-4">
-                        <img src="/public/assets/img/category/icon1.png" width="75" alt="Service" />
-                        <h4 class="mb-3">Calculated Weather</h4>
-                        <p class="mb-0 fw-medium">Built Wicket longer admire do barton vanity itself do in it.</p>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var item in Model.Take(4))
+                {
+                    <div class="col-lg-3 col-sm-6 mb-6">
+                        <div class="card service-card shadow-hover rounded-3 text-center align-items-center">
+                            <div class="card-body p-xxl-5 p-4">
+                                @if (!string.IsNullOrEmpty(item.IconUrl))
+                                {
+                                    <img src="@item.IconUrl" width="75" alt="Service" />
+                                }
+                                else
+                                {
+                                    <img src="~/public/assets/img/category/icon1.png" width="75" alt="Service" />
+                                }
+                                <h4 class="mb-3">@item.Title</h4>
+                                <p class="mb-0 fw-medium">@item.Description</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <!-- Fallback static content -->
+                <div class="col-lg-3 col-sm-6 mb-6">
+                    <div class="card service-card shadow-hover rounded-3 text-center align-items-center">
+                        <div class="card-body p-xxl-5 p-4">
+                            <img src="~/public/assets/img/category/icon1.png" width="75" alt="Service" />
+                            <h4 class="mb-3">Havayolları</h4>
+                            <p class="mb-0 fw-medium">En iyi uçuş seçenekleri için bizimle iletişime geçin.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 mb-6">
-                <div class="card service-card shadow-hover rounded-3 text-center align-items-center">
-                    <div class="card-body p-xxl-5 p-4">
-                        <img src="/public/assets/img/category/icon2.png" width="75" alt="Service" />
-                        <h4 class="mb-3">Best Flights</h4>
-                        <p class="mb-0 fw-medium">Engrossed listening. Park gate sell they west hard for the.</p>
+                <div class="col-lg-3 col-sm-6 mb-6">
+                    <div class="card service-card shadow-hover rounded-3 text-center align-items-center">
+                        <div class="card-body p-xxl-5 p-4">
+                            <img src="~/public/assets/img/category/icon2.png" width="75" alt="Service" />
+                            <h4 class="mb-3">Döviz Ofisi</h4>
+                            <p class="mb-0 fw-medium">Seyahatiniz için en uygun döviz kurları.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 mb-6">
-                <div class="card service-card shadow-hover rounded-3 text-center align-items-center">
-                    <div class="card-body p-xxl-5 p-4">
-                        <img src="/public/assets/img/category/icon3.png" width="75" alt="Service" />
-                        <h4 class="mb-3">Local Events</h4>
-                        <p class="mb-0 fw-medium">Barton vanity itself do in it. Preferd to men it engrossed listening.</p>
+                <div class="col-lg-3 col-sm-6 mb-6">
+                    <div class="card service-card shadow-hover rounded-3 text-center align-items-center">
+                        <div class="card-body p-xxl-5 p-4">
+                            <img src="~/public/assets/img/category/icon3.png" width="75" alt="Service" />
+                            <h4 class="mb-3">Hastaneler</h4>
+                            <p class="mb-0 fw-medium">Sağlık turizmi için en iyi hastaneler.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 mb-6">
-                <div class="card service-card shadow-hover rounded-3 text-center align-items-center">
-                    <div class="card-body p-xxl-5 p-4">
-                        <img src="/public/assets/img/category/icon4.png" width="75" alt="Service" />
-                        <h4 class="mb-3">Customization</h4>
-                        <p class="mb-0 fw-medium">We deliver outsourced aviation services for military customers</p>
+                <div class="col-lg-3 col-sm-6 mb-6">
+                    <div class="card service-card shadow-hover rounded-3 text-center align-items-center">
+                        <div class="card-body p-xxl-5 p-4">
+                            <img src="~/public/assets/img/category/icon4.png" width="75" alt="Service" />
+                            <h4 class="mb-3">Özel Turlar</h4>
+                            <p class="mb-0 fw-medium">Size özel tasarlanmış tur paketleri.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         </div>
     </div><!-- end of .container-->
 

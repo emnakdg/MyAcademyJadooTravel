@@ -1,63 +1,92 @@
-﻿@*
-    Trip Plan Component Partial View
+﻿@using Microsoft.AspNetCore.Localization
+@*
+    Trip Plan / Booking Steps Component Partial View with Localization
 *@
 
-<section id="booking">
+@{
+    var requestCultureFeature = Context.Features.Get<IRequestCultureFeature>();
+    var currentCulture = requestCultureFeature?.RequestCulture.Culture.Name ?? "tr-TR";
+    
+    var texts = new Dictionary<string, Dictionary<string, string>>
+    {
+        { "tr-TR", new Dictionary<string, string> {
+            { "EasyFast", "Kolay Ve Hızlı Rezervasyon" },
+            { "ThreeSteps", "3 Adımda Rezervasyonunuzu Tamamlayın" },
+            { "Step1Title", "Destinasyon Seçin" },
+            { "Step1Desc", "Favori yerinizi seçin. Dünyanın neresine giderseniz gidin fark etmez." },
+            { "Step2Title", "Ödeme Yapın" },
+            { "Step2Desc", "Mükemmel noktanızı bulduktan sonra ödemenizi yapın ve seyahate hazırlanın." },
+            { "Step3Title", "Belirlenen Tarihte Havalimanına Gidin" },
+            { "Step3Desc", "Son olarak, zamanında havalimanına varmanız ve tatilin keyfini çıkarmanız gerekiyor." }
+        }},
+        { "en-US", new Dictionary<string, string> {
+            { "EasyFast", "Easy and Fast Booking" },
+            { "ThreeSteps", "Book Your Trip in 3 Steps" },
+            { "Step1Title", "Choose Destination" },
+            { "Step1Desc", "Choose your favourite place. No matter where you travel inside the World." },
+            { "Step2Title", "Make Payment" },
+            { "Step2Desc", "After finding your perfect spot, make your payment and get ready to travel." },
+            { "Step3Title", "Reach Airport on Selected Date" },
+            { "Step3Desc", "Lastly, you have to arrive at the airport on time and enjoy the vacation." }
+        }},
+        { "fr-FR", new Dictionary<string, string> {
+            { "EasyFast", "Réservation Facile et Rapide" },
+            { "ThreeSteps", "Réservez Votre Voyage en 3 Étapes" },
+            { "Step1Title", "Choisissez la Destination" },
+            { "Step1Desc", "Choisissez votre endroit préféré. Peu importe où vous voyagez dans le monde." },
+            { "Step2Title", "Effectuez le Paiement" },
+            { "Step2Desc", "Après avoir trouvé votre endroit idéal, effectuez votre paiement et préparez-vous à voyager." },
+            { "Step3Title", "Arrivez à l'Aéroport à la Date Sélectionnée" },
+            { "Step3Desc", "Enfin, vous devez arriver à l'aéroport à l'heure et profiter des vacances." }
+        }},
+        { "de-DE", new Dictionary<string, string> {
+            { "EasyFast", "Einfache und Schnelle Buchung" },
+            { "ThreeSteps", "Buchen Sie Ihre Reise in 3 Schritten" },
+            { "Step1Title", "Reiseziel Wählen" },
+            { "Step1Desc", "Wählen Sie Ihren Lieblingsort. Egal wohin Sie in der Welt reisen." },
+            { "Step2Title", "Zahlung Durchführen" },
+            { "Step2Desc", "Nachdem Sie Ihren perfekten Ort gefunden haben, führen Sie die Zahlung durch und bereiten Sie sich auf die Reise vor." },
+            { "Step3Title", "Am Ausgewählten Datum zum Flughafen" },
+            { "Step3Desc", "Schließlich müssen Sie pünktlich am Flughafen ankommen und den Urlaub genießen." }
+        }}
+    };
+    
+    var t = texts.ContainsKey(currentCulture) ? texts[currentCulture] : texts["tr-TR"];
+}
+
+<section id="steps">
 
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="mb-4 text-start">
-                    <h5 class="text-secondary">Kolay Ve Hızlı Rezervasyon </h5>
-                    <h3 class="fs-xl-10 fs-lg-8 fs-7 fw-bold font-cursive text-capitalize">3 Adımda Rezervasyonunuzu Tamamlayın</h3>
+                    <h5 class="text-secondary">@t["EasyFast"]</h5>
+                    <h3 class="fs-xl-10 fs-lg-8 fs-7 fw-bold font-cursive text-capitalize">@t["ThreeSteps"]</h3>
                 </div>
                 <div class="d-flex align-items-start mb-5">
                     <div class="bg-primary me-sm-4 me-3 p-3" style="border-radius: 13px"> <img src="/public/assets/img/steps/selection.svg" width="22" alt="steps" /></div>
                     <div class="flex-1">
-                        <h5 class="text-secondary fw-bold fs-0">Choose Destination</h5>
-                        <p>Choose your favourite place. No matter <br class="d-none d-sm-block"> where you travel inside the World.</p>
+                        <h5 class="text-secondary fw-bold fs-0">@t["Step1Title"]</h5>
+                        <p>@t["Step1Desc"]</p>
                     </div>
                 </div>
                 <div class="d-flex align-items-start mb-5">
                     <div class="bg-danger me-sm-4 me-3 p-3" style="border-radius: 13px"> <img src="/public/assets/img/steps/water-sport.svg" width="22" alt="steps" /></div>
                     <div class="flex-1">
-                        <h5 class="text-secondary fw-bold fs-0">Make Payment</h5>
-                        <p>After find your perfect spot, make your <br class="d-none d-sm-block"> payment and get ready to travel.</p>
+                        <h5 class="text-secondary fw-bold fs-0">@t["Step2Title"]</h5>
+                        <p>@t["Step2Desc"]</p>
                     </div>
                 </div>
                 <div class="d-flex align-items-start mb-5">
                     <div class="bg-info me-sm-4 me-3 p-3" style="border-radius: 13px"> <img src="/public/assets/img/steps/taxi.svg" width="22" alt="steps" /></div>
                     <div class="flex-1">
-                        <h5 class="text-secondary fw-bold fs-0">Reach Airport on Selected Date</h5>
-                        <p>Lastly, you have to arrive at the airport <br class="d-none d-sm-block"> on time and enjoy the vacation.</p>
+                        <h5 class="text-secondary fw-bold fs-0">@t["Step3Title"]</h5>
+                        <p>@t["Step3Desc"]</p>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 d-flex justify-content-center align-items-start">
-                <div class="card shadow-lg border-info" style="width: 100%; max-width: 500px;">
-                    <div class="card-header bg-info text-white text-center">
-                        <h5 class="mb-0">Rezervasyon Formu</h5>
-                    </div>
-                    <div class="card-body">
-                        <form method="post">
-                            <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="Adınız Soyadınız" required />
-                            </div>
-                            <div class="mb-3">
-                                <input type="tel" class="form-control" placeholder="Telefon Numaranız" required />
-                            </div>
-                            <div class="mb-3">
-                                <input type="email" class="form-control" placeholder="Email Adresiniz" required />
-                            </div>
-                            <div class="mb-3">
-                                <textarea rows="3" class="form-control" placeholder="Varsa eklemek istedikleriniz"></textarea>
-                            </div>
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-info">Rezervasyon Yap</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                <img src="/public/assets/img/steps/booking-steps.png" alt="Booking Steps" class="img-fluid" style="max-width: 500px; border-radius: 20px;" />
             </div>
         </div>
     </div><!-- end of .container-->

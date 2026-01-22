@@ -1,25 +1,65 @@
 ﻿@model JadooTravel.Dtos.DestinationDtos.CreateDestinationDto
 @{
-    Layout = null;
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+    ViewData["Title"] = "Yeni Tur Ekle";
 }
 
-<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-
-<div class="container">
-    <br /><br />
-    <form method="post">
-        <input type="text" asp-for="CityCountry" placeholder="Şehir/Ülke Giriniz" class="form-control" />
-        <br />
-        <input type="text" asp-for="ImageUrl" placeholder="Fotoğraf URL Giriniz" class="form-control" />
-        <br />
-        <input type="text" asp-for="Price" placeholder="Fiyat Giriniz" class="form-control" />
-        <br />
-        <input type="text" asp-for="DayNight" placeholder="Gün-Gece Sayısı" class="form-control" />
-        <br />
-        <input type="text" asp-for="Capacity" placeholder="Kapasite Giriniz" class="form-control" />
-        <br />
-        <textarea asp-for="Description" placeholder="Tur Açıklaması Giriniz" rows="5" class="form-control"></textarea>
-        <br />
-        <button class="btn btn-primary">Turu Ekle</button>
-    </form>
+<div class="body-wrapper">
+    <div class="body-wrapper-inner">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4">Yeni Tur Oluştur</h5>
+                    <form method="post">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Şehir/Ülke</label>
+                                    <input type="text" asp-for="CityCountry" class="form-control" required />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Görsel URL</label>
+                                    <input type="text" asp-for="ImageUrl" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Fiyat (₺)</label>
+                                    <input type="number" asp-for="Price" class="form-control" required />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Süre (Gün/Gece)</label>
+                                    <input type="text" asp-for="DayNight" class="form-control" placeholder="3 Gün 2 Gece" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Kapasite</label>
+                                    <input type="number" asp-for="Capacity" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Açıklama</label>
+                            <textarea asp-for="Description" rows="4" class="form-control"></textarea>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="ti ti-check"></i> Kaydet
+                            </button>
+                            <a href="/Destination/DestinationList" class="btn btn-secondary">
+                                <i class="ti ti-x"></i> İptal
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,0 +1,163 @@
+@using Microsoft.AspNetCore.Localization
+@*
+    AI Travel Recommendation Component with Localization
+*@
+
+@{
+    var requestCultureFeature = Context.Features.Get<IRequestCultureFeature>();
+    var currentCulture = requestCultureFeature?.RequestCulture.Culture.Name ?? "tr-TR";
+    
+    var texts = new Dictionary<string, Dictionary<string, string>>
+    {
+        { "tr-TR", new Dictionary<string, string> {
+            { "AITitle", "🤖 Yapay Zeka Önerileri" },
+            { "AISubtitle", "Seyahat Planınız İçin Akıllı Öneriler" },
+            { "AIDesc", "Gitmek istediğiniz şehri ve ülkeyi girin, size gezilecek yerleri önerelim!" },
+            { "City", "Şehir" },
+            { "CityPlaceholder", "Örn: Paris" },
+            { "Country", "Ülke" },
+            { "CountryPlaceholder", "Örn: Fransa" },
+            { "GetRecommendations", "Önerileri Getir" },
+            { "Loading", "Yükleniyor..." },
+            { "LoadingDesc", "Yapay zeka önerileri hazırlanıyor..." },
+            { "PlacesToVisit", "Gezilecek Yerler" },
+            { "Error", "Bir hata oluştu. Lütfen tekrar deneyin." }
+        }},
+        { "en-US", new Dictionary<string, string> {
+            { "AITitle", "🤖 AI Recommendations" },
+            { "AISubtitle", "Smart Suggestions for Your Travel Plan" },
+            { "AIDesc", "Enter the city and country you want to visit, and we'll suggest places to explore!" },
+            { "City", "City" },
+            { "CityPlaceholder", "e.g. Paris" },
+            { "Country", "Country" },
+            { "CountryPlaceholder", "e.g. France" },
+            { "GetRecommendations", "Get Recommendations" },
+            { "Loading", "Loading..." },
+            { "LoadingDesc", "AI recommendations are being prepared..." },
+            { "PlacesToVisit", "Places to Visit" },
+            { "Error", "An error occurred. Please try again." }
+        }},
+        { "fr-FR", new Dictionary<string, string> {
+            { "AITitle", "🤖 Recommandations IA" },
+            { "AISubtitle", "Suggestions Intelligentes pour Votre Voyage" },
+            { "AIDesc", "Entrez la ville et le pays que vous souhaitez visiter, nous vous suggérerons des lieux à explorer!" },
+            { "City", "Ville" },
+            { "CityPlaceholder", "ex. Paris" },
+            { "Country", "Pays" },
+            { "CountryPlaceholder", "ex. France" },
+            { "GetRecommendations", "Obtenir des Recommandations" },
+            { "Loading", "Chargement..." },
+            { "LoadingDesc", "Les recommandations IA sont en préparation..." },
+            { "PlacesToVisit", "Lieux à Visiter" },
+            { "Error", "Une erreur s'est produite. Veuillez réessayer." }
+        }},
+        { "de-DE", new Dictionary<string, string> {
+            { "AITitle", "🤖 KI-Empfehlungen" },
+            { "AISubtitle", "Intelligente Vorschläge für Ihre Reiseplanung" },
+            { "AIDesc", "Geben Sie die Stadt und das Land ein, das Sie besuchen möchten, und wir schlagen Ihnen Orte vor!" },
+            { "City", "Stadt" },
+            { "CityPlaceholder", "z.B. Paris" },
+            { "Country", "Land" },
+            { "CountryPlaceholder", "z.B. Frankreich" },
+            { "GetRecommendations", "Empfehlungen Abrufen" },
+            { "Loading", "Laden..." },
+            { "LoadingDesc", "KI-Empfehlungen werden vorbereitet..." },
+            { "PlacesToVisit", "Sehenswürdigkeiten" },
+            { "Error", "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut." }
+        }}
+    };
+    
+    var t = texts.ContainsKey(currentCulture) ? texts[currentCulture] : texts["tr-TR"];
+}
+
+<section class="pt-5 pb-5" id="ai-recommendations" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="text-center mb-5">
+                    <h5 class="text-secondary">@t["AITitle"]</h5>
+                    <h3 class="fs-xl-10 fs-lg-8 fs-7 fw-bold font-cursive text-capitalize">@t["AISubtitle"]</h3>
+                    <p class="text-muted">@t["AIDesc"]</p>
+                </div>
+                
+                <div class="card shadow-lg" style="border-radius: 20px;">
+                    <div class="card-body p-4">
+                        <form id="aiRecommendationForm">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-medium">@t["City"]</label>
+                                    <input type="text" class="form-control form-control-lg" id="aiCity" placeholder="@t["CityPlaceholder"]" required />
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-medium">@t["Country"]</label>
+                                    <input type="text" class="form-control form-control-lg" id="aiCountry" placeholder="@t["CountryPlaceholder"]" required />
+                                </div>
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <button type="submit" class="btn btn-primary btn-lg w-100" id="aiSubmitBtn" style="border-radius: 10px;">
+                                        <i class="fas fa-magic me-2"></i> @t["GetRecommendations"]
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        <div id="aiLoading" class="text-center mt-4" style="display: none;">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">@t["Loading"]</span>
+                            </div>
+                            <p class="mt-2 text-muted">@t["LoadingDesc"]</p>
+                        </div>
+                        
+                        <div id="aiResult" class="mt-4" style="display: none;">
+                            <hr />
+                            <h5 class="fw-bold mb-3"><i class="fas fa-map-marked-alt me-2 text-primary"></i> @t["PlacesToVisit"]</h5>
+                            <div id="aiRecommendationContent" class="bg-light p-4" style="border-radius: 10px; white-space: pre-wrap; line-height: 1.8;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.getElementById('aiRecommendationForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const city = document.getElementById('aiCity').value;
+        const country = document.getElementById('aiCountry').value;
+        const submitBtn = document.getElementById('aiSubmitBtn');
+        const loading = document.getElementById('aiLoading');
+        const result = document.getElementById('aiResult');
+        const content = document.getElementById('aiRecommendationContent');
+        
+        submitBtn.disabled = true;
+        loading.style.display = 'block';
+        result.style.display = 'none';
+        
+        try {
+            const response = await fetch('/api/recommendations', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ city: city, country: country })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                content.textContent = data.recommendations;
+                result.style.display = 'block';
+            } else {
+                content.innerHTML = '<div class="alert alert-warning">' + data.message + '</div>';
+                result.style.display = 'block';
+            }
+        } catch (error) {
+            content.innerHTML = '<div class="alert alert-danger">@t["Error"]</div>';
+            result.style.display = 'block';
+        } finally {
+            submitBtn.disabled = false;
+            loading.style.display = 'none';
+        }
+    });
+</script>

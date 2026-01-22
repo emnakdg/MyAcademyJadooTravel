@@ -1,0 +1,178 @@
+@model List<JadooTravel.Dtos.DestinationDtos.ResultDestinationDto>
+@using Microsoft.AspNetCore.Localization
+@*
+    Booking Form Component for Homepage with Localization
+*@
+
+@{
+    var requestCultureFeature = Context.Features.Get<IRequestCultureFeature>();
+    var currentCulture = requestCultureFeature?.RequestCulture.Culture.Name ?? "tr-TR";
+    
+    var texts = new Dictionary<string, Dictionary<string, string>>
+    {
+        { "tr-TR", new Dictionary<string, string> {
+            { "MakeReservation", "Rezervasyon Yap" },
+            { "Dreams", "Hayallerinizi gerçeğe dönüştürün!" },
+            { "FullName", "Ad Soyad" },
+            { "FullNamePlaceholder", "Adınız ve Soyadınız" },
+            { "Email", "E-posta" },
+            { "Phone", "Telefon" },
+            { "SelectTour", "Tur Seçin" },
+            { "SelectTourPlaceholder", "-- Tur Seçin --" },
+            { "Date", "Tarih" },
+            { "NumberOfPeople", "Kişi Sayısı" },
+            { "Submit", "Rezervasyon Yap" },
+            { "Error", "Bir hata oluştu. Lütfen tekrar deneyin." }
+        }},
+        { "en-US", new Dictionary<string, string> {
+            { "MakeReservation", "Make a Reservation" },
+            { "Dreams", "Turn your dreams into reality!" },
+            { "FullName", "Full Name" },
+            { "FullNamePlaceholder", "Your Full Name" },
+            { "Email", "Email" },
+            { "Phone", "Phone" },
+            { "SelectTour", "Select Tour" },
+            { "SelectTourPlaceholder", "-- Select Tour --" },
+            { "Date", "Date" },
+            { "NumberOfPeople", "Number of People" },
+            { "Submit", "Book Now" },
+            { "Error", "An error occurred. Please try again." }
+        }},
+        { "fr-FR", new Dictionary<string, string> {
+            { "MakeReservation", "Faire une Réservation" },
+            { "Dreams", "Transformez vos rêves en réalité!" },
+            { "FullName", "Nom Complet" },
+            { "FullNamePlaceholder", "Votre Nom Complet" },
+            { "Email", "Email" },
+            { "Phone", "Téléphone" },
+            { "SelectTour", "Choisir le Tour" },
+            { "SelectTourPlaceholder", "-- Choisir le Tour --" },
+            { "Date", "Date" },
+            { "NumberOfPeople", "Nombre de Personnes" },
+            { "Submit", "Réserver" },
+            { "Error", "Une erreur s'est produite. Veuillez réessayer." }
+        }},
+        { "de-DE", new Dictionary<string, string> {
+            { "MakeReservation", "Reservierung Machen" },
+            { "Dreams", "Verwandeln Sie Ihre Träume in Realität!" },
+            { "FullName", "Vollständiger Name" },
+            { "FullNamePlaceholder", "Ihr Vollständiger Name" },
+            { "Email", "E-Mail" },
+            { "Phone", "Telefon" },
+            { "SelectTour", "Tour Auswählen" },
+            { "SelectTourPlaceholder", "-- Tour Auswählen --" },
+            { "Date", "Datum" },
+            { "NumberOfPeople", "Anzahl der Personen" },
+            { "Submit", "Jetzt Buchen" },
+            { "Error", "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut." }
+        }}
+    };
+    
+    var t = texts.ContainsKey(currentCulture) ? texts[currentCulture] : texts["tr-TR"];
+}
+
+<section class="pt-5 pb-5" id="booking" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-lg" style="border-radius: 20px;">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <h3 class="fw-bold text-secondary">@t["MakeReservation"]</h3>
+                            <p class="text-muted">@t["Dreams"]</p>
+                        </div>
+                        <form id="bookingForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-medium">@t["FullName"]</label>
+                                    <input type="text" class="form-control form-control-lg" id="fullName" name="FullName" placeholder="@t["FullNamePlaceholder"]" required />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-medium">@t["Email"]</label>
+                                    <input type="email" class="form-control form-control-lg" id="email" name="Email" placeholder="ornek@email.com" required />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-medium">@t["Phone"]</label>
+                                    <input type="tel" class="form-control form-control-lg" id="phone" name="Phone" placeholder="+90 5XX XXX XX XX" required />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-medium">@t["SelectTour"]</label>
+                                    <select class="form-select form-select-lg" id="destinationId" name="DestinationId" required>
+                                        <option value="">@t["SelectTourPlaceholder"]</option>
+                                        @if (Model != null)
+                                        {
+                                            @foreach (var item in Model)
+                                            {
+                                                <option value="@item.DestinationId" data-price="@item.Price">@item.CityCountry - @item.Price.ToString("N0") ₺</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-medium">@t["Date"]</label>
+                                    <input type="date" class="form-control form-control-lg" id="bookingDate" name="BookingDate" required />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-medium">@t["NumberOfPeople"]</label>
+                                    <input type="number" class="form-control form-control-lg" id="numberOfPeople" name="NumberOfPeople" min="1" value="1" required />
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg px-5 py-3" style="border-radius: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">
+                                        <i class="fas fa-paper-plane me-2"></i> @t["Submit"]
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <div id="bookingResult" class="mt-4" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.getElementById('bookingForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = {
+            FullName: document.getElementById('fullName').value,
+            Email: document.getElementById('email').value,
+            Phone: document.getElementById('phone').value,
+            DestinationId: document.getElementById('destinationId').value,
+            BookingDate: document.getElementById('bookingDate').value,
+            NumberOfPeople: parseInt(document.getElementById('numberOfPeople').value)
+        };
+        
+        try {
+            const response = await fetch('/api/booking/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            const result = await response.json();
+            const resultDiv = document.getElementById('bookingResult');
+            
+            if (result.success) {
+                resultDiv.innerHTML = '<div class="alert alert-success"><i class="fas fa-check-circle me-2"></i>' + result.message + '</div>';
+                document.getElementById('bookingForm').reset();
+            } else {
+                resultDiv.innerHTML = '<div class="alert alert-danger"><i class="fas fa-exclamation-circle me-2"></i>' + result.message + '</div>';
+            }
+            resultDiv.style.display = 'block';
+        } catch (error) {
+            const resultDiv = document.getElementById('bookingResult');
+            resultDiv.innerHTML = '<div class="alert alert-danger"><i class="fas fa-exclamation-circle me-2"></i>@t["Error"]</div>';
+            resultDiv.style.display = 'block';
+        }
+    });
+</script>
