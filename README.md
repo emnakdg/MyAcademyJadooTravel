@@ -39,21 +39,6 @@ JadooTravel/
 └── wwwroot/           # Static Files
 ```
 
-## ⚙️ Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/JadooTravel.git
-   ```
-
-2. **Configure MongoDB connection**
-   Update `appsettings.json` with your MongoDB connection string
-
-3. **Run the application**
-   ```bash
-   dotnet run
-   ```
-
 ## 🎯 Purpose
 
 This project was developed to learn and implement:
@@ -65,12 +50,36 @@ This project was developed to learn and implement:
 
 ## 📸 Screenshots
 
-*Coming soon...*
+<img width="1904" height="915" alt="1" src="https://github.com/user-attachments/assets/09e8f616-d7dd-4b2f-b530-d5837e66ec82" />
 
-## 📝 License
+<img width="1905" height="917" alt="2" src="https://github.com/user-attachments/assets/1f56d44e-1a58-49b7-abb9-9997a8e288f2" />
 
-This project is open source and available under the [MIT License](LICENSE).
+<img width="1904" height="827" alt="3" src="https://github.com/user-attachments/assets/3cd757d3-418a-44f8-ac9f-e1bf057e2d92" />
 
----
+<img width="1904" height="1079" alt="4" src="https://github.com/user-attachments/assets/83d6c7ce-29c4-4fb0-bdc9-a9042d9ce6d3" />
 
-⭐ **If you find this project useful, please give it a star!**
+<img width="1904" height="950" alt="5" src="https://github.com/user-attachments/assets/123b5319-e7f1-424e-b6c2-e01e1db65b2e" />
+
+<img width="1905" height="773" alt="6" src="https://github.com/user-attachments/assets/71b8f805-aab3-436b-b45a-0d76edec02ed" />
+
+<img width="1904" height="535" alt="8" src="https://github.com/user-attachments/assets/3a1d0177-dbcc-40db-b420-5c4d3e77127c" />
+
+<img width="1905" height="1080" alt="9" src="https://github.com/user-attachments/assets/4f96880d-6926-4693-84d1-027fb7e1fd39" />
+
+<img width="1904" height="1080" alt="10" src="https://github.com/user-attachments/assets/d03cafd4-ec5f-4287-bbdf-456223a21656" />
+
+<img width="1905" height="1080" alt="11" src="https://github.com/user-attachments/assets/2614d549-da0c-472d-b803-36acc55b180a" />
+
+<img width="1904" height="1077" alt="12" src="https://github.com/user-attachments/assets/613a82e9-3f7e-4f5c-abe9-eb1fa695bf5d" />
+
+<img width="1918" height="1080" alt="13" src="https://github.com/user-attachments/assets/37e5be09-2809-4233-9051-983661ea23e6" />
+
+<img width="1916" height="1080" alt="14" src="https://github.com/user-attachments/assets/7bc95d3f-75e9-452a-9162-e6ede1f6f500" />
+
+<img width="1917" height="784" alt="15" src="https://github.com/user-attachments/assets/3e43da08-459e-429d-87eb-c59b54e5d9a6" />
+
+
+
+
+
+
