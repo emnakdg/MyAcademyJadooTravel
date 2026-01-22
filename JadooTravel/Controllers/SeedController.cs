@@ -210,13 +210,11 @@ namespace JadooTravel.Controllers
             var existingBookings = await _bookingService.GetAllBookingsAsync();
             if (existingBookings.Any()) return "Rezervasyonlar: Zaten mevcut, atlandı.";
 
-            // Get destinations to use their IDs
             var destinations = await _destinationService.GetAllDestinationAsync();
             if (!destinations.Any()) return "Rezervasyonlar: Önce turlar eklenmeli!";
 
             var destList = destinations.ToList();
-            
-            // Turkish first names and surnames for realistic data
+                      
             var firstNames = new[] { "Ahmet", "Mehmet", "Mustafa", "Ali", "Hüseyin", "Hasan", "İbrahim", "Osman", "Yusuf", "Murat",
                                      "Fatma", "Ayşe", "Emine", "Hatice", "Zeynep", "Elif", "Merve", "Büşra", "Esra", "Selin" };
             var lastNames = new[] { "Yılmaz", "Kaya", "Demir", "Çelik", "Şahin", "Yıldız", "Yıldırım", "Öztürk", "Aydın", "Özdemir",
@@ -230,7 +228,7 @@ namespace JadooTravel.Controllers
                 var firstName = firstNames[random.Next(firstNames.Length)];
                 var lastName = lastNames[random.Next(lastNames.Length)];
                 var destination = destList[random.Next(destList.Count)];
-                var daysAhead = random.Next(-30, 60); // Some past, some future
+                var daysAhead = random.Next(-30, 60);
                 var numberOfPeople = random.Next(1, 6);
 
                 var booking = new CreateBookingDto

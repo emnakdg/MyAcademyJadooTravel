@@ -17,7 +17,6 @@
     
     var currentFlag = cultures.ContainsKey(currentCulture) ? cultures[currentCulture] : "🇹🇷 TR";
     
-    // Localized strings based on culture
     var navTexts = new Dictionary<string, Dictionary<string, string>>
     {
         { "tr-TR", new Dictionary<string, string> {
@@ -65,7 +64,6 @@
                 <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#testimonial">@texts["Testimonials"]</a></li>
                 <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#!">@texts["Contact"]</a></li>
                 
-                <!-- Language Selector -->
                 <li class="nav-item dropdown px-3 px-lg-0">
                     <a class="d-inline-block ps-0 py-2 pe-3 text-decoration-none dropdown-toggle fw-medium" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">@currentFlag</a>
                     <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg" style="border-radius:0.3rem;" aria-labelledby="navbarDropdown">

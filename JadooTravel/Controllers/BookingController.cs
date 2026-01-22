@@ -60,7 +60,6 @@ namespace JadooTravel.Controllers
             return RedirectToAction("BookingList");
         }
 
-        // API endpoint for homepage booking form
         [HttpPost]
         [Route("api/booking/create")]
         public async Task<IActionResult> CreateBookingApi([FromBody] CreateBookingDto createBookingDto)
