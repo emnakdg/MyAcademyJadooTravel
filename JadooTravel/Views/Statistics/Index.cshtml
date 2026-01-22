@@ -16,7 +16,6 @@
 <div class="body-wrapper">
     <div class="body-wrapper-inner">
         <div class="container-fluid">
-            <!--  Header Start -->
             <header class="app-header">
                 <nav class="navbar navbar-expand-lg navbar-light">
                     <ul class="navbar-nav">
@@ -37,11 +36,10 @@
                     </div>
                 </nav>
             </header>
-            <!--  Header End -->
 
-            <!--  Charts Row -->
+
             <div class="row">
-                <!-- Tour Booking Chart -->
+                <!-- Tur Rezerasyon Grafiği -->
                 <div class="col-lg-4 d-flex align-items-stretch">
                     <div class="card w-100">
                         <div class="card-body">
@@ -50,7 +48,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Monthly Bookings Chart -->
+                <!-- Aylık Rezervasyonlar Grafiği -->
                 <div class="col-lg-4 d-flex align-items-stretch">
                     <div class="card w-100">
                         <div class="card-body">
@@ -59,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Status Distribution Chart -->
+                <!-- Durum Dağılımı Grafiği -->
                 <div class="col-lg-4 d-flex align-items-stretch">
                     <div class="card w-100">
                         <div class="card-body">
@@ -70,7 +68,7 @@
                 </div>
             </div>
 
-            <!-- Latest Reservations - Full Width (12 columns) -->
+            <!-- Son Rezervasyonlar - 12 sütun -->
             <div class="row">
                 <div class="col-12">
                     <div class="card w-100">
@@ -153,7 +151,7 @@
                 </div>
             </div>
 
-            <!-- Latest 4 Tours -->
+            <!-- Son 4 Rezervasyon -->
             <div class="row">
                 <div class="col-12">
                     <h5 class="fw-semibold mb-4">Son Eklenen Turlar</h5>
@@ -202,10 +200,9 @@
     </div>
 </div>
 
-<!-- ApexCharts -->
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>
-    // Tour Booking Bar Chart
+    // Tur Rezervasyonu Bar Grafiği
     var tourOptions = {
         series: [{
             name: 'Kişi Sayısı',
@@ -229,7 +226,7 @@
     var tourChart = new ApexCharts(document.querySelector("#tourBookingChart"), tourOptions);
     tourChart.render();
 
-    // Monthly Line Chart
+    // Aylık Çizgi Grafiği
     var monthlyOptions = {
         series: [{
             name: 'Rezervasyon',
@@ -259,7 +256,7 @@
     var monthlyChart = new ApexCharts(document.querySelector("#monthlyChart"), monthlyOptions);
     monthlyChart.render();
 
-    // Status Pie Chart
+    // Durum Donut Grafiği
     var statusOptions = {
         series: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(statusCounts)),
         chart: {
@@ -267,7 +264,7 @@
             height: 280
         },
         labels: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(statusLabels.Select(s => s == "Pending" ? "Beklemede" : s == "Confirmed" ? "Onaylandı" : s == "Cancelled" ? "İptal" : s))),
-        colors: ['#FFAE1F', '#13DEB9', '#FA896B'],
+        colors: ['#13DEB9', '#FA896B', '#FFAE1F'],
         legend: {
             position: 'bottom'
         }
